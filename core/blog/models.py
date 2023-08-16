@@ -18,6 +18,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_snippe(self):
+        return self.content[0:5]
 
 
 class Category(models.Model):
