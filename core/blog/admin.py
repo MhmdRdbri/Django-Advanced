@@ -3,7 +3,7 @@ from .models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['author', 'image', 'title', 'content', 'status', 'category', 'created_at', 'published_at']
+    list_display = ['author', 'image', 'title', 'content', 'status', 'category', 'get_absolute_api_url', 'created_at', 'published_at']
 
 
 admin.site.register(Category)
