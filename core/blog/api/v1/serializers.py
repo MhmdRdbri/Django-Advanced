@@ -5,7 +5,7 @@ class postSerializer(serializers.ModelSerializer):
     snippet = serializers.ReadOnlyField(source='get_snippet')
     class Meta:
         model = Post
-        fields = ['id', 'author', 'title', 'content', 'category', 'status', 'created_at', 'published_at']
+        fields = ['id', 'author', 'title', 'content','snippet', 'category', 'status', 'created_at', 'published_at']
         
 
 class CategorySerializer(serializers.ModelSerializer):
