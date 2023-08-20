@@ -10,6 +10,7 @@ from blog.models import *
 from rest_framework.views import *
 from .permissions import *
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -75,7 +76,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 #         post.delete()
 #         return Response({'Detail': 'Item removed successfuly!'}, status=status.HTTP_204_NO_CONTENT)
 
-# class PostDetail(RetrieveUpdateDestroyAPIView):
+# # class PostDetail(RetrieveUpdateDestroyAPIView):
 #     permission_classes = [IsAuthenticatedOrReadOnly]
 #     serializer_class = postSerializer
 #     queryset = Post.objects.filter(status=True)
@@ -85,8 +86,9 @@ class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = postSerializer
     queryset = Post.objects.filter(status=True)
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['category', 'author', 'status']
+    search_fields = ['title', 'content']
     
     
 class CategoryModelViewSet(viewsets.ModelViewSet):
