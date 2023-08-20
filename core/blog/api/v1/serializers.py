@@ -28,5 +28,4 @@ class postSerializer(serializers.ModelSerializer):
         else:
             rep.pop('content', None)
         rep['category'] = CategorySerializer(instance.category).data
-        rep.pop('snippet', None)
         return rep
