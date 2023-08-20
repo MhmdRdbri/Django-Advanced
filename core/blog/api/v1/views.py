@@ -8,6 +8,7 @@ from rest_framework.permissions import *
 from .serializers import *
 from blog.models import *
 from rest_framework.views import *
+from .permissions import *
 from rest_framework import viewsets
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
 
@@ -80,7 +81,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, Re
 
 
 class PostModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = postSerializer
     queryset = Post.objects.filter(status=True)
     
