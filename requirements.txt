@@ -5,3 +5,4 @@ djangorestframework
 markdown
 django-filter
 django-debug-toolbar
+drf-yasg[validation]
