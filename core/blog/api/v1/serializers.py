@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from blog.models import *
+from accounts.models import *
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,7 +13,8 @@ class postSerializer(serializers.ModelSerializer):
     absolute_url = serializers.SerializerMethodField()
     class Meta:
         model = Post
-        fields = ['id', 'author', 'title', 'content', 'snippet', 'category', 'status', 'relative_url', 'absolute_url', 'created_at', 'published_at']
+        fields = ['id', 'author', 'title', 'image', 'content', 'snippet', 'category', 'status', 'relative_url', 'absolute_url', 'created_at', 'published_at']
+        read_only_fields = ['author']
         
     def get_absolute_url(self,obj):
         request = self.context.get('request')
@@ -27,5 +29,9 @@ class postSerializer(serializers.ModelSerializer):
             rep.pop('avsolute_url', None)
         else:
             rep.pop('content', None)
-        rep['category'] = CategorySerializer(instance.category).data
+        rep['category'] = CategorySerializer(instance.category, context={'request':request}).data
         return rep
+    
+    def create(self, validated_data):
+        validated_data['author'] = Profile.objects.get(user__id = self.context.get('request').user.id)
+        return super().create(validated_data)
