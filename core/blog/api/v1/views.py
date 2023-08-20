@@ -11,6 +11,7 @@ from rest_framework.views import *
 from .permissions import *
 from rest_framework import viewsets
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 
 # @api_view(['GET', 'Put', 'DELETE'])
 # def postDetail(request, id):
@@ -84,6 +85,9 @@ class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = postSerializer
     queryset = Post.objects.filter(status=True)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'author', 'status']
+    
     
 class CategoryModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
