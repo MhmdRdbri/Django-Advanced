@@ -9,6 +9,7 @@ urlpatterns = [
     path('blog/', include('blog.urls', namespace='blog')),
     path('api-auth/', include('rest_framework.urls')),
     path('api-docs/', include_docs_urls(title='ALL API')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 if settings.DEBUG:
