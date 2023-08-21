@@ -3,6 +3,6 @@ from ...models import *
 
 class RegistrationSerializer(serializers.ModelSerializer):
     
-    class MEta:
+    class Meta:
         model = User
         fields = ['email', 'password']
