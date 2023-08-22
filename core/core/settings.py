@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'debug_toolbar',
     'drf_yasg',
+    'rest_framework_simplejwt',
 ] 
 
 MIDDLEWARE = [
@@ -147,5 +148,6 @@ REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoS
                     'rest_framework.authentication.BasicAuthentication',
                     'rest_framework.authentication.SessionAuthentication',
                     'rest_framework.authentication.TokenAuthentication',
+                    'rest_framework_simplejwt.authentication.JWTAuthentication',
                     ]
                   }

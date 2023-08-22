@@ -30,7 +30,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 
 class CustomAuthTokenSerializer(serializers.Serializer):
-    username = serializers.CharField(
+    email = serializers.CharField(
         label=_("Email"),
         write_only=True
     )
