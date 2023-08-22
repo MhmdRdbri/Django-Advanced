@@ -8,6 +8,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from ...models import *
+from django.core.mail import send_mail
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -59,3 +60,14 @@ class ProfileApiView(generics.RetrieveUpdateAPIView):
         queryset = self.get_queryset()
         obj = get_object_or_404(queryset, user=self.request.user.id)
         return obj
+    
+class TestEmailSend(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        send_mail(
+            'Subject!',
+            'Message!',
+            'from@example.com',
+            ['to@example.com'],
+            fail_silently=False
+        )
+        return Response('Email sent.')
