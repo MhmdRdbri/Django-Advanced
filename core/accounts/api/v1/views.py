@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework import status
-from .serializers import RegistrationSerializer
+from .serializers import RegistrationSerializer, CustomAuthTokenSerializer
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -20,7 +20,7 @@ class RegistrationApiView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
     
 class CustomAuthToken(ObtainAuthToken):
-
+    serializer_class = CustomAuthTokenSerializer
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
