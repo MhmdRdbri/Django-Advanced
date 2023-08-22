@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from ...models import *
 from mail_templated import EmailMessage
+from .utils import *
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -63,6 +64,6 @@ class ProfileApiView(generics.RetrieveUpdateAPIView):
     
 class TestEmailSend(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
-        message = EmailMessage('email/hello.tpl', {'name':'Ali'}, 'admin@gmail.com', [request.user.email])
-        message.send()
+        email_obj = EmailMessage('email/hello.tpl', {'name':'Ali'}, 'admin@gmail.com', [request.user.email])
+        EmailThread(email_obj).start()
         return Response('Email sent.')
