@@ -10,6 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 from ...models import *
 from mail_templated import EmailMessage
 from .utils import *
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -64,6 +66,13 @@ class ProfileApiView(generics.RetrieveUpdateAPIView):
     
 class TestEmailSend(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
-        email_obj = EmailMessage('email/hello.tpl', {'name':'Ali'}, 'admin@gmail.com', [request.user.email])
+        self.email = 'test@gmail.com'
+        user_obj = get_object_or_404(User, email=self.email)
+        token = self.get_tokens_for_user(user_obj)
+        email_obj = EmailMessage('email/hello.tpl', {'Token':token}, 'admin@gmail.com', to=[self.email])
         EmailThread(email_obj).start()
         return Response('Email sent.')
+    
+    def get_tokens_for_user(self, user):
+        refresh = RefreshToken.for_user(user)
+        return str(refresh.access_token)
