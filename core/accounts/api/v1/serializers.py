@@ -73,3 +73,9 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         validated_data['email'] = self.user.email
         validated_data['user_id'] = self.user.id
         return validated_data
+    
+class ProfileSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(source='user.email')
+    class Meta:
+        model = Profile
+        fields = ('id', 'email', 'first_name', 'last_name', 'image', 'description')
