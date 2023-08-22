@@ -75,8 +75,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return validated_data
     
 class ProfileSerializer(serializers.ModelSerializer):
-    email = serializers.CharField(source='user.email')
+    email = serializers.CharField(source='user.email', read_only=True)
     class Meta:
         model = Profile
         fields = ('id', 'email', 'first_name', 'last_name', 'image', 'description')
-        read_only_fields = ('email')
+        read_only_fields = ('email',)
