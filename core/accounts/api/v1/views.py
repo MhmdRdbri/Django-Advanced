@@ -42,7 +42,9 @@ class CustomAuthToken(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
         token, created = Token.objects.get_or_create(user=user)
-        return Response({"token": token.key, "user_id": user.pk, "email": user.email})
+        return Response(
+            {"token": token.key, "user_id": user.pk, "email": user.email}
+        )
 
 
 class CustomDiscardAuthToken(APIView):
@@ -73,7 +75,10 @@ class TestEmailSend(generics.GenericAPIView):
         user_obj = get_object_or_404(User, email=self.email)
         token = self.get_tokens_for_user(user_obj)
         email_obj = EmailMessage(
-            "email/hello.tpl", {"Token": token}, "admin@gmail.com", to=[self.email]
+            "email/hello.tpl",
+            {"Token": token},
+            "admin@gmail.com",
+            to=[self.email],
         )
         EmailThread(email_obj).start()
         return Response("Email sent.")

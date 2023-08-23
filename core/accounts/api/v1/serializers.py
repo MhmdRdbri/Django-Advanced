@@ -16,7 +16,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs.get("password") != attrs.get("password1"):
-            raise serializers.ValidationError({"detail": "password didnt match"})
+            raise serializers.ValidationError(
+                {"detail": "password didnt match"}
+            )
 
         try:
             validate_password(attrs.get("password"))
@@ -83,5 +85,12 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ("id", "email", "first_name", "last_name", "image", "description")
+        fields = (
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "image",
+            "description",
+        )
         read_only_fields = ("email",)
