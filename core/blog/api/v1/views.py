@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view,permission_classes
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.response import Response
@@ -11,7 +11,11 @@ from rest_framework.views import *
 from .permissions import *
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (
+    ListCreateAPIView,
+    RetrieveUpdateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 from django_filters.rest_framework import DjangoFilterBackend
 
 # @api_view(['GET', 'Put', 'DELETE'])
@@ -29,7 +33,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 #         post = get_object_or_404(Post, pk=id)
 #         post.delete()
 #         return Response({'Detail': 'Item removed successfuly!'}, status=status.HTTP_204_OK)
-        
+
 
 # @api_view(['post','get'])
 # @permission_classes([IsAuthenticated])
@@ -45,32 +49,31 @@ from django_filters.rest_framework import DjangoFilterBackend
 #             return Response(serializer.data)
 #         else:
 #             return Response(serializer.errors)
-        
-        
+
 
 # class PostList(ListCreateAPIView):
-    
+
 #     permission_classes = [IsAuthenticated]
 #     serializer_class = postSerializer
 #     queryset = Post.objects.filter(status=True)
-    
-    
+
+
 # class PostDetail(APIView):
 #     permission_classes = [IsAuthenticatedOrReadOnly]
 #     serializer_class = postSerializer
-    
+
 #     def get(self, request, id):
 #         post = get_object_or_404(Post, pk=id)
 #         serializer = postSerializer(post)
 #         return Response(serializer.data)
-    
+
 #     def put(self, request, id):
 #         post = get_object_or_404(Post, pk=id)
 #         serializer = postSerializer(post, data=request.data)
 #         serializer.is_valid(raise_exception=True)
 #         serializer.save()
 #         return Response(serializer.data)
-    
+
 #     def delete(self, request, id):
 #         post = get_object_or_404(Post, pk=id)
 #         post.delete()
@@ -87,11 +90,11 @@ class PostModelViewSet(viewsets.ModelViewSet):
     serializer_class = postSerializer
     queryset = Post.objects.filter(status=True)
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['category', 'author', 'status']
-    search_fields = ['title', 'content']
-    
-    
+    filterset_fields = ["category", "author", "status"]
+    search_fields = ["title", "content"]
+
+
 class CategoryModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()  
+    queryset = Category.objects.all()

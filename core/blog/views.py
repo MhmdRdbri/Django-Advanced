@@ -7,13 +7,13 @@ from .forms import *
 
 class PostListView(ListView):
     model = Post
-    context_object_name = 'posts'
+    context_object_name = "posts"
 
 
 class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
-    success_url = '/blog/post/'
+    success_url = "/blog/post/"
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -23,11 +23,13 @@ class PostCreateView(CreateView):
 class PostEditView(UpdateView):
     model = Post
     form_class = PostForm
-    success_url = '/blog/post/'
+    success_url = "/blog/post/"
+
 
 class PostDeleteView(DeleteView):
     model = Post
-    success_url = '/blog/post/'
-    
+    success_url = "/blog/post/"
+
+
 class PostDetailView(DetailView):
     model = Post
