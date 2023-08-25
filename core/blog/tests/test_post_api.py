@@ -2,7 +2,6 @@ from django.urls import reverse
 from accounts.models import User, Profile
 import pytest
 from rest_framework.test import APIClient
-from requests.auth import HTTPBasicAuth
 from datetime import datetime
 
 
