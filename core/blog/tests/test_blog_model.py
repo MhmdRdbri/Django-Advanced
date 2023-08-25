@@ -24,5 +24,5 @@ class TestPostModel(TestCase):
             category = None,
             published_at = datetime.now()
         )
-        self.asserTrue(Post.objects.filter(pk=post.pk).exists())
+        self.assertTrue(Post.objects.filter(pk=post.pk).exists())
         self.assertEqual(post.title, "test")
