@@ -32,5 +32,5 @@ class PostDeleteView(DeleteView):
     success_url = "/blog/post/"
 
 
-class PostDetailView(LoginRequiredMixin,DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
