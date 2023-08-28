@@ -78,7 +78,7 @@ class TestEmailSend(generics.GenericAPIView):
             "admin@gmail.com",
             to=[self.email],
         )
-        EmailThread(email_obj).start()
+        email_obj.send()
         return Response("Email sent.")
 
     def get_tokens_for_user(self, user):
